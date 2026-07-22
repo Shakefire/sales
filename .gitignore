@@ -1,0 +1,35 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+.installed.cfg
+pip-log.txt
+pip-delete-this-directory.txt
+
+# --- Virtual environment ---
+.venv/
+venv/
+env/
+
+# --- Database ---
+db.sqlite3
+db.sqlite3-journal
+
+# --- Django ---
+*.log
+local_settings.py
+collected_static/
+
+# --- IDE ---
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# --- OS ---
+Thumbs.db
+.DS_Store
