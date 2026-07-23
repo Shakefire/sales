@@ -1,0 +1,80 @@
+{% extends 'erp_framework/base_site.html' %}
+{% load i18n static erp_reporting_tags %}
+
+{% block content %}
+
+
+    <div class="col-sm-6">
+        {% get_report base_model='expense' report_slug='ExpensesTotalStatement' as ExpensesTotalStatement %}
+        {% get_widget ExpensesTotalStatement %}
+
+        {% get_report base_model='product' report_slug='productmovementstatement' as productmovementstatement %}
+        {% get_widget productmovementstatement display_chart=False date_theme="last_week" %}
+
+        {% get_report base_model='product' report_slug='ProductClientSalesCrossTab' as ProductClientSalesCrossTab %}
+        {% get_widget ProductClientSalesCrossTab extra_params="client_id=1&client_id=2&crosstab_compute_remainder=on"  %}
+
+    </div>
+    <div class="col-sm-6">
+        {% get_report base_model='profitability' report_slug='profitabilityreportmonthly' as profitabilityreportmonthly %}
+        {% get_widget profitabilityreportmonthly display_table=False extra_params="time_series_pattern=monthly" chart_id="total-column" display_chart_selector=False %}
+        <div class="">
+            {% get_report base_model='reports' report_slug='salelistreportview' as salelistreportview %}
+            {% get_widget salelistreportview date_theme="last_week" %}
+        </div>
+
+
+    </div>
+
+    <div class="col-sm-6">
+    </div>
+
+
+{% endblock %}
+
+{% block extrajs %}
+    {{ block.super }}
+
+
+    <script>
+        $.slick_reporting.highcharts.defaults.credits = {
+            text: 'Django ERP Framework',
+            href: 'https://github.com/RamezIssac/django-erp-framework'
+        }
+
+        function product_total_series_daily(data, $elem) {
+            {#            var MyDate = new Date();#}
+            {#            var dateString = MyDate.getFullYear() + ''+ ('0' + (MyDate.getMonth()+1)).slice(-2) + '' + ('0' + MyDate.getDate()).slice(-2) ;#}
+            {#            var todays_sales = data.data[0]['__total__TS'+ dateString];#}
+
+
+            var series_col_names = data.metadata.time_series_column_names
+            var series_names = data.metadata.time_series_column_verbose_names
+
+            function salesTooltip(d, i) {
+                return "<div class='text-center'>" +
+                    "<span class='text-size-small'>{% trans 'sales'|capfirst %}</span>" +
+                    "<h6 class='no-margin'>" + d + "</h6>" +
+                    "<div class='text-size-small'>" + series_names[i] + "</div>" +
+                    "</div>"
+            }
+
+            var weekTotal = 0;
+            var total_data = calculateTotalOnObjectArray(data.data, series_col_names);
+            var chartArry = [];
+            for (var i = 0; i < series_col_names.length - 1; i++) {
+                var day = total_data[series_col_names[i]];
+                weekTotal += day;
+                chartArry.push(day)
+            }
+            $('.todaySales').text(chartArry.slice(-1)[0]);
+            var avg = $.erp_framework.smartParseFloat(weekTotal / 7).toFixed(0);
+            $('.product_total_series_daily').empty();
+            {#$.erp_framework.d3.barChart('.product_total_series_daily', chartArry, 100, true, 'elastic', 1200, 50, "rgb(92, 107, 192)", salesTooltip);#}
+            $('.weekTotal').text($.erp_framework.smartParseFloat(weekTotal));
+            $('.weekAvg').text(avg);
+            {#unblockDiv($elem);#}
+        }
+    </script>
+
+{% endblock %}

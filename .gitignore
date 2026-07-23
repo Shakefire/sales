@@ -2,17 +2,47 @@
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
 *.egg-info/
-*.egg
 .installed.cfg
 pip-log.txt
 pip-delete-this-directory.txt
+pip-wheel-metadata/
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
 
 # --- Virtual environment ---
 .venv/
 venv/
 env/
+ENV/
+env.bak/
+venv.bak/
 
 # --- Database ---
 db.sqlite3
@@ -22,6 +52,10 @@ db.sqlite3-journal
 *.log
 local_settings.py
 collected_static/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*.ipynb
 
 # --- IDE ---
 .idea/
@@ -33,3 +67,7 @@ collected_static/
 # --- OS ---
 Thumbs.db
 .DS_Store
+
+# --- Local tools / temporary files ---
+inspect_crosstab_report.py
+report_debug.ipynb

@@ -1,4 +1,4 @@
-﻿# my-shop
+# my-shop
 
 A Django ERP framework example project with sales, purchase, expense, and reporting modules.
 
@@ -180,8 +180,7 @@ Log in with the username and password you created in step 10.
 
 ---
 
-## Subsequent runs (second time and beyond)
-
+## Subsequent Runs (Second Time and Beyond)
 
 After completing the initial setup, use the following steps to run the project locally.
 
@@ -193,7 +192,7 @@ Open PowerShell on your computer.
 
 ```powershell
 cd C:\kb\sales\my-shop
-````
+```
 
 ### 3. Activate the virtual environment
 
@@ -227,9 +226,7 @@ Ctrl + C
 
 in the PowerShell window.
 
-```
-```
-
+---
 
 ## Project structure
 
